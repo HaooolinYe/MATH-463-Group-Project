@@ -38,6 +38,16 @@ function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem)
 %           problem          = specify the norm 
 %   OUTPUT: x                = "deblurred" image 
 %
+%    for k =1:i.maxiter
+ %       x = prox_f(t,init_vectors[0]);
+  %      if strcmp(problem,'l1') == 1
+   %         gamma=i.gammal1;
+    %    else
+%            gamma = i.gammal2;
+ %       end
+  %      y = norm_prox(problem, b, init_vectors[1], t, rho, gamma);
+   %     temp = 2*x - init_vectors[0] ...
+    %end
 
 end
 
