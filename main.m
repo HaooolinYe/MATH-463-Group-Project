@@ -109,7 +109,7 @@ function [x]= optsolve(problem,algorithm,x_init, kernel, b, i)
 end
 
 
-%Storing image in matrix 
+%Store image
 I= imread('True_Image.png');
 
 % Show initial image
