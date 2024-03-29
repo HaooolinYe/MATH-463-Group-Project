@@ -167,5 +167,5 @@ w = zeros(numRows*numCols, 1);
 z= zeros(numRows*numCols, 1);
 x_initAlg3 = [x, u, y, w, z];
 
-% Deblur the image
+% Deblurring the image
 %x= optsolve('problem', 'algorithm', x_init, kernel, b, i);
