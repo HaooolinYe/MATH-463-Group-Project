@@ -1,34 +1,3 @@
-function [output] = prox_f(t, x)
-%DESCRIPTION: Prox operator of f
-%   INPUT:  t                = stepsize
-%           x                = input vector
-%   OUTPUT:  
-%
-end
-
-function [output] = norm_prox(norm, b,x, t, rho, gamma)
-%DESCRIPTION: Prox operator for l1 and l2 norms 
-%   INPUT:  norm             = problem (either l1 or l2)
-%           b                = blurred image
-%           t                = stepsize
-%           rho              = relaxation parameter
-%           x                = input vector
-%           gamma            = de-noising parameter
-%   OUTPUT:  
-%
-end
-
-function [output] = iso_prox(b,x, t, rho, gamma)
-%DESCRIPTION: Prox operator of the iso norm 
-%   INPUT:  b                = blurred image
-%           t                = stepsize
-%           rho              = relaxation parameter
-%           x                = input vector
-%           gamma            = de-noising parameter
-%   OUTPUT:  
-%
-end
-
 function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem)
 %DESCRIPTION: Primal Douglas-Rachford Splitting Algorithm
 %   INPUT:  b                = blurred image
