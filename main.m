@@ -13,7 +13,7 @@ function [output] = norm_prox(norm, b,x, t, rho, gamma)
 %           t                = stepsize
 %           rho              = relaxation parameter
 %           x                = input vector
-%           gamma            = de-noising 
+%           gamma            = de-noising parameter
 %   OUTPUT:  
 %
 end
@@ -24,7 +24,7 @@ function [output] = iso_prox(b,x, t, rho, gamma)
 %           t                = stepsize
 %           rho              = relaxation parameter
 %           x                = input vector
-%           gamma            = de-noising 
+%           gamma            = de-noising parameter
 %   OUTPUT:  
 %
 end
@@ -123,13 +123,13 @@ I=I-mn;
 mx = max(I(:));
 I = I/mx;
 
-% Resize image for faster computation
+% can use this to resize image for faster computation
 %resizefactor = 0.1;
 %I = imresize(I, resizefactor);
 
 % Generate blurred image
-noiseDensity = 0.5;
-kernel = fspecial('gaussian', [15, 15], 5);
+noiseDensity = 0.5; 
+kernel = fspecial('gaussian', [15, 15], 5); 
 b = imfilter(I,kernel);
 b = imnoise(b,'salt & pepper',noiseDensity);
 [numRows, numCols] = size(b);
@@ -162,9 +162,9 @@ i.tadmm = 2.0;
 i.rhoadmm = 1.049;
 x= zeros(numRows*numCols, 1);
 u = zeros(numRows*numCols, 1);
-y = zeros(numRows*numCols, 1);
+y = zeros(3*numRows*numCols, 1); % |y|=3n^2
 w = zeros(numRows*numCols, 1);
-z= zeros(numRows*numCols, 1);
+z= zeros(3*numRows*numCols, 1); % |z|=3n^2
 x_initAlg3 = [x, u, y, w, z];
 
 % Deblurring the image
