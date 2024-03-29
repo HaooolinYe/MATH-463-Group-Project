@@ -146,6 +146,7 @@ i.gammal2 = 0.049;
 % Set parameters for Alg1
 i.tprimaldr = 2.0;
 i.rhoprimaldr = 0.1;
+% Set initial vectors for Alg1
 z_1 = zeros(numRows*numCols, 1);
 z_2 = zeros(numRows*numCols, 1);
 x_initAlg1 = [z_1, z_2];
@@ -153,6 +154,7 @@ x_initAlg1 = [z_1, z_2];
 % Set parameters for Alg2
 i.tprimaldualdr = 2.0;
 i.rhoprimaldualdr = 1.049;
+% Set initial vectors for Alg2
 p= zeros(numRows*numCols, 1);
 q = zeros(numRows*numCols, 1);
 x_initAlg2 = [p,q];
@@ -160,6 +162,7 @@ x_initAlg2 = [p,q];
 % Set parameters for Alg3
 i.tadmm = 2.0;
 i.rhoadmm = 1.049;
+% Set initial vectors for Alg3
 x= zeros(numRows*numCols, 1);
 u = zeros(numRows*numCols, 1);
 y = zeros(3*numRows*numCols, 1); % |y|=3n^2
