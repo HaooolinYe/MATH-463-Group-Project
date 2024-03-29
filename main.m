@@ -96,10 +96,10 @@ function [x]= optsolve(problem,algorithm,x_init, kernel, b, i)
     % ...
 
     % deblurring
-    if 'algorithm' == 'douglasrachfordprimal'
+    if strcmp(algorithm, 'douglasrachfordprimal') == 1
         x = douglasrachfordprimal(b, i.tprimaldr, i.rhoprimaldr, x_init, problem);
 
-    elseif 'algorithm' == 'douglasrachfordprimaldual'
+    elseif strcmp(algorithm ,'douglasrachfordprimaldual') == 1
         x = douglasrachfordprimal(b, i.tprimaldualdr, i.rhoprimaldualdr, x_init, problem);
         
     else 
@@ -165,7 +165,7 @@ u = zeros(numRows*numCols, 1);
 y = zeros(3*numRows*numCols, 1); % |y|=3n^2
 w = zeros(numRows*numCols, 1);
 z= zeros(3*numRows*numCols, 1); % |z|=3n^2
-x_initAlg3 = [x, u, y, w, z];
+x_initAlg3 = {x, u, y, w, z};
 
 % Deblurring the image
-%x= optsolve('problem', 'algorithm', x_init, kernel, b, i);
+%x= optsolve('l1', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
