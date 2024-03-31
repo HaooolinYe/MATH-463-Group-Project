@@ -1,6 +1,6 @@
 %MAIN SCRIPT
 
-%storing+deblurring image
+%storing+blurring image:
 
     I= imread('True_Image.png'); %Store image
     figure('Name','image before deblurring') % Show initial image
@@ -23,33 +23,43 @@
     figure('Name','image after blurring') % Show blurred image
     imshow(b,[]) 
 
-% Initialize commun parameters
+%construct K, D1, D2:
+
+%creating multiplymatrix functions :
+
+% default parameters:
+
+    %common parameters
     i.maxiter = 500;
     i.gammal1 = 0.049;
     i.gammal2 = 0.049;
-    % Set parameters for Alg1
-    i.tprimaldr = 2.0;
-    i.rhoprimaldr = 0.1;
-    % Set initial vectors for Alg1
-    z_1 = zeros(numRows*numCols, 1);
-    z_2 = zeros(numRows*numCols, 1);
-    x_initAlg1 = [z_1, z_2];
-    % Set parameters for Alg2
-    i.tprimaldualdr = 2.0;
-    i.rhoprimaldualdr = 1.049;
-    % Set initial vectors for Alg2
-    p= zeros(numRows*numCols, 1);
-    q = zeros(numRows*numCols, 1);
-    x_initAlg2 = [p,q];
-    % Set parameters for Alg3
-    i.tadmm = 2.0;
-    i.rhoadmm = 1.049;
-    % Set initial vectors for Alg3
-    u = zeros(numRows*numCols, 1);
-    y = zeros(3*numRows*numCols, 1); % |y|=3n^2
-    w = zeros(numRows*numCols, 1);
-    z= zeros(3*numRows*numCols, 1); % |z|=3n^2
-    x_initAlg3 = {x, u, y, w, z};
+    %alg1
+        % Set parameters for Alg1
+        i.tprimaldr = 2.0;
+        i.rhoprimaldr = 0.1;
+        % Set initial vectors for Alg1
+        z_1 = zeros(numRows*numCols, 1);
+        z_2 = zeros(numRows*numCols, 1);
+        x_initAlg1 = [z_1, z_2];
+    %alg2
+        % Set parameters for Alg2
+        i.tprimaldualdr = 2.0;
+        i.rhoprimaldualdr = 1.049;
+        % Set initial vectors for Alg2
+        p= zeros(numRows*numCols, 1);
+        q = zeros(numRows*numCols, 1);
+        x_initAlg2 = [p,q];
+    %alg 3
+        % Set parameters for Alg3
+        i.tadmm = 2.0;
+        i.rhoadmm = 1.049;
+        % Set initial vectors for Alg3
+        u = zeros(numRows*numCols, 1);
+        y = zeros(3*numRows*numCols, 1); % |y|=3n^2
+        w = zeros(numRows*numCols, 1);
+        z= zeros(3*numRows*numCols, 1); % |z|=3n^2
+        x_initAlg3 = {x, u, y, w, z};
 
-% Deblurring the image
+% Deblurring the image:
+
     %x= optsolve('l1', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
