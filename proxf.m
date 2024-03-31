@@ -1,4 +1,4 @@
-function [output] = prox_f(t, x)
+function [output] = proxf(t, x)
 %DESCRIPTION: Prox operator of f
 %   INPUT:  t                = stepsize
 %           x                = input vector
