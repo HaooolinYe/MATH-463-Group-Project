@@ -23,10 +23,6 @@
     figure('Name','image after blurring') % Show blurred image
     imshow(b,[]) 
 
-%construct K, D1, D2:
-
-%creating multiplymatrix functions :
-
 % default parameters:
 
     %common parameters
