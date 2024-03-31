@@ -58,7 +58,7 @@
         y = zeros(3*numRows*numCols, 1); % |y|=3n^2
         w = zeros(numRows*numCols, 1);
         z= zeros(3*numRows*numCols, 1); % |z|=3n^2
-        x_initAlg3 = {x, u, y, w, z};
+        x_initAlg3 = {u, y, w, z};
 
 % Deblurring the image:
 
