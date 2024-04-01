@@ -12,5 +12,6 @@ function [output] = norm_proxg(norm, b,x, t, rho, gamma)
         %insert l1 prox g
     else
         %insert l2 prox g
+        output = l2prox(x,b,t);
     end
 end

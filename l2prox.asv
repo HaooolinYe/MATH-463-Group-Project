@@ -1,0 +1,13 @@
+function [output] = l2_proxg(y1,b, t)
+%DESCRIPTION: Prox operator of the iso norm 
+%   INPUT:  
+%           t                = stepsize
+%           (y2,y3)          = input vector
+%           gamma            = de-noising parameter
+%   OUTPUT:  gamma*prox( iso(y2,y3) )
+%
+
+x = y1 - b;
+output = (x ./ (2*t + 1) );
+
+end
