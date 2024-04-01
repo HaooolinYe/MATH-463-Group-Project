@@ -10,6 +10,9 @@ function [output] = norm_proxg(norm, b,x, t, rho, gamma)
 %
     if norm == l1
         %insert l1 prox g
+        absxk = abs(x);
+        logic = absxk>t;
+        output = logic.*(sign(x).*(absxk-t));
     else
         %insert l2 prox g
         output = l2prox(x,b,t);
