@@ -26,7 +26,30 @@ function [x]= optsolve(problem,algorithm,x_init, kernel, b, i)
     eigArry_D1Trans = conj(eigArry_D1);
     eigArry_D2Trans = conj(eigArry_D2);
 
-    % ...
+    %Functions which compute Kx, D1x, D2x, Dxt, K^Tx, D1^Tx, D2^Tx, and D^Ty.
+    %Note for all the x functions, the input x is in R^(m x n) and outputs into
+    %R^(m x n) except for D which outputs into 2 concat. R^(m x n) matrices;
+    %For D^Ty, y is two m x n matrices concatanated and outputs into R^(m x n)
+    applyK = @(x) applyPeriodicConv2D(x, eigArry_K);
+    applyD1 = @(x) applyPeriodicConv2D(x, eigArry_D1);
+    applyD2 = @(x) applyPeriodicConv2D(x, eigArry_D2);
+    
+    applyKTrans = @(x) applyPeriodicConv2D(x, eigArry_KTrans);
+    applyD1Trans = @(x) applyPeriodicConv2D(x, eigArry_D1Trans);
+    applyD2Trans = @(x) applyPeriodicConv2D(x, eigArry_D2Trans);
+    
+    applyD = @(x) cat(3, applyD1(x), applyD2(x));
+    
+    applyDTrans = @(y) applyD1Trans(y(:,:,1)) + applyD2Trans(y(:, :, 2));
+
+    %Functions which compute Ax and A^Ty
+    %applyA takes 1 matrix and gives 3 concatenated matrices
+    %applyAT takes 3 concatenated matrices and gives 1 matrix
+    %Treat all (3n x n) matrices as (n x n x 3) for consistency and
+        %simplicity
+    %These functions can be used in algorithms
+    applyA = @(x) cat(3, applyK(x), applyD(x));
+    applyAT = @(y) applyKTrans(y(:,:,1)) + applyDTrans(y(:,:,2:3));
 
     % deblurring
     if strcmp(algorithm, 'douglasrachfordprimal') == 1
