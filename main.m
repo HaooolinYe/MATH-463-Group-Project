@@ -33,7 +33,7 @@
         i.tprimaldr = 2.0;
         i.rhoprimaldr = 0.1;
         % Set initial vectors for Alg1
-        z_1 = zeros(numRows*numCols, 1);
+        z_1 = zeros(numRows, numCols);
         z_2 = cat(3,z_1,z_1,z_1);% |z_2|=3n^2
         x_initAlg1 = {z_1, z_2};
     %alg2
@@ -41,7 +41,7 @@
         i.tprimaldualdr = 2.0;
         i.rhoprimaldualdr = 1.049;
         % Set initial vectors for Alg2
-        p= zeros(numRows*numCols, 1);
+        p = zeros(numRows, numCols);
         q = cat(3,p,p,p); % |q|=3n^2
         x_initAlg2 = {p,q};
     %alg 3
@@ -49,10 +49,10 @@
         i.tadmm = 2.0;
         i.rhoadmm = 1.049;
         % Set initial vectors for Alg3
-        u = zeros(numRows*numCols, 1);
+        u = zeros(numRows, numCols);
         y = cat(3,u,u,u); % |y|=3n^2
-        w = zeros(numRows*numCols, 1);
-        z= cat(3,u,u,u); % |z|=3n^2
+        w = zeros(numRows, numCols);
+        z = cat(3,u,u,u); % |z|=3n^2
         x_initAlg3 = {u, y, w, z};
 
 % Deblurring the image:
