@@ -1,5 +1,4 @@
 %MAIN SCRIPT
-
 %storing+blurring image:
 
     I= imread('True_Image.png'); %Store image
@@ -35,16 +34,16 @@
         i.rhoprimaldr = 0.1;
         % Set initial vectors for Alg1
         z_1 = zeros(numRows*numCols, 1);
-        z_2 = zeros(numRows*numCols, 1);
-        x_initAlg1 = [z_1, z_2];
+        z_2 = zeros(3*numRows*numCols, 1);% |z_2|=3n^2
+        x_initAlg1 = {z_1, z_2};
     %alg2
         % Set parameters for Alg2
         i.tprimaldualdr = 2.0;
         i.rhoprimaldualdr = 1.049;
         % Set initial vectors for Alg2
         p= zeros(numRows*numCols, 1);
-        q = zeros(numRows*numCols, 1);
-        x_initAlg2 = [p,q];
+        q = zeros(3*numRows*numCols, 1); % |q|=3n^2
+        x_initAlg2 = {p,q};
     %alg 3
         % Set parameters for Alg3
         i.tadmm = 2.0;
@@ -58,4 +57,4 @@
 
 % Deblurring the image:
 
-    %x= optsolve('l1', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
+    x= optsolve('l1', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
