@@ -2,20 +2,25 @@ function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem)
 %DESCRIPTION: Primal Douglas-Rachford Splitting Algorithm
 %   INPUT:  b                = blurred image
 %           t                = stepsize
-%           p                = relaxation parameter
+%           rho              = relaxation parameter
 %           init_vectors     = the initial vectors (z_1, z_2)
 %           problem          = specify the norm 
 %   OUTPUT: x                = "deblurred" image 
-%
-%    for k =1:i.maxiter
- %       x = prox_f(t,init_vectors[0]);
-  %      if strcmp(problem,'l1') == 1
-   %         gamma=i.gammal1;
-    %    else
-%            gamma = i.gammal2;
- %       end
-  %      y = norm_prox(problem, b, init_vectors[1], t, rho, gamma);
-   %     temp = 2*x - init_vectors[0] ...
-    %end
+%    
+    z_1 = init_vectors(1);
+    z_2 = init_vectors(2);
+    for k =1:i.maxiter
+        x = prox_f(t,z_1);
+        if strcmp(problem,'l1') == 1
+            gamma=i.gammal1;
+        else
+           gamma = i.gammal2;
+        end
+        y = norm_prox(problem, b, z_2, t, rho, gamma);
+        u = invertMatrix(2.*x - z_1 + applyAT(2.*y-z_2));
+        v = applyA(u);
+        z_1 = z_1 + rho*(u-x);
+        z_2 = z_2 + rho*(v-y);
+    end
 
 end
