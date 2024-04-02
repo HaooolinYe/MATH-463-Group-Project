@@ -1,4 +1,4 @@
-function [y] = norm_proxg(norm, b,y, t, gamma)
+function [y] = proxg(norm, b,y, t, gamma)
 %DESCRIPTION: Prox operator on g(y). first we find proxl1/l2 for y1 then we
 %find iso prox for y2,y3. outputting the 3n x n matrix y(:,:,:) 
 %   INPUT:  norm             = problem (either l1 or l2)
