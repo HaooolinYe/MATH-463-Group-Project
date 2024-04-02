@@ -1,4 +1,4 @@
-function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem,i)
+function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem,i, applyA_functions)
 %DESCRIPTION: Primal Douglas-Rachford Splitting Algorithm
 %   INPUT:  b                = blurred image
 %           t                = stepsize
@@ -7,6 +7,9 @@ function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem,i)
 %           problem          = specify the norm 
 %   OUTPUT: x                = "deblurred" image 
 %    
+    applyA = applyA_functions{1};
+    applyAT = applyA_functions{2};
+    invertMatrix = applyA_functions{3};
     z_1 = init_vectors{1};
     z_2 = init_vectors{2};
     for k =1:i.maxiter

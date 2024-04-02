@@ -50,10 +50,21 @@ function [x]= optsolve(problem,algorithm,x_init, kernel, b, i)
     %These functions can be used in algorithms
     applyA = @(x) cat(3, applyK(x), applyD(x));
     applyAT = @(y) applyKTrans(y(:,:,1)) + applyDTrans(y(:,:,2:3));
+    % Function which computes the (I + K^TK + D^TD)x where x in R^(m x n)
+    % matrix and the eigenvalues of I + t*t*K^TK + t*t*D^TD; here t is the
+    % stepsizes
+    applyMat = @(x) x + applyKTrans(applyK(x)) + applyDTrans(applyD(x));
+    eigValsMat = ones(numRows, numCols) + eigArry_KTrans.*eigArry_K + eigArry_D1Trans.*eigArry_D1...
+        + eigArry_D2Trans.*eigArry_D2;
+    
+    %R^(m x n) Computing (I + K^T*K + D^T*D)^(-1)*x
+    invertMatrix = @(x) ifft2(fft2(x)./eigValsMat); 
+    applyA_functions = {applyA, applyAT, invertMatrix};
+
 
     % deblurring
     if strcmp(algorithm, 'douglasrachfordprimal') == 1
-        x = douglasrachfordprimal(b, i.tprimaldr, i.rhoprimaldr, x_init, problem, i);
+        x = douglasrachfordprimal(b, i.tprimaldr, i.rhoprimaldr, x_init, problem, i, applyA_functions);
 
     elseif strcmp(algorithm ,'douglasrachfordprimaldual') == 1
         x = douglasrachfordprimal(b, i.tprimaldualdr, i.rhoprimaldualdr, x_init, problem, i);
