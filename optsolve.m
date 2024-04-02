@@ -53,13 +53,13 @@ function [x]= optsolve(problem,algorithm,x_init, kernel, b, i)
 
     % deblurring
     if strcmp(algorithm, 'douglasrachfordprimal') == 1
-        x = douglasrachfordprimal(b, i.tprimaldr, i.rhoprimaldr, x_init, problem);
+        x = douglasrachfordprimal(b, i.tprimaldr, i.rhoprimaldr, x_init, problem, i);
 
     elseif strcmp(algorithm ,'douglasrachfordprimaldual') == 1
-        x = douglasrachfordprimal(b, i.tprimaldualdr, i.rhoprimaldualdr, x_init, problem);
+        x = douglasrachfordprimal(b, i.tprimaldualdr, i.rhoprimaldualdr, x_init, problem, i);
         
     else 
-        x = admm(b, i.tadmm, i.rhoadmm, x_init, problem);
+        x = admm(b, i.tadmm, i.rhoadmm, x_init, problem, i);
     end 
 
 end
