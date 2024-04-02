@@ -13,6 +13,7 @@ function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem,i, applyA_
     invertMatrix = applyA_functions{3};
     z_1 = init_vectors{1};
     z_2 = init_vectors{2};
+    disp(applyAT(z_2))
     for k =1:i.maxiter
         x = proxf(t,z_1); % proxf(z_1^k-1)
         if strcmp(problem, 'l1') == 1
@@ -21,13 +22,13 @@ function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem,i, applyA_
            gamma = i.gammal2;
         end
         y = proxg(problem, b, z_2, t, gamma); % proxg(z_2^k-1)
-
+        y(:,:,1)
+        y(:,:,2)=zeros(size(z_1));
+%         y(:,:,3)=zeros(size(z_1));
         u = invertMatrix(2.*x - z_1 + applyAT(2.*y-z_2));
-        u
         v = applyA(u);
         z_1 = z_1 + rho*(u-x);
         z_2 = z_2 + rho*(v-y);
     end
-    x = proxf(t,z_1);
 
 end

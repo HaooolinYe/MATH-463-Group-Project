@@ -14,8 +14,8 @@ function [prox2,prox3] = iso_proxg(y2,y3, t, gamma)
     norm = (y2.^2+y3.^2).^(1/2); %component-wise: sqrt(y2_k^2 + y3_k^2)
     logic = norm>t; %bool vect represents the constraint of the prox+
 
-    prox2 = gamma*(logic.*(y2 - t*y2./norm) ); 
-    prox3 = gamma*(logic.*(y3 - t*y3./norm) );
+    prox2 = gamma*(logic.*(y2 - t*y2./max(norm,0.0001)) ); 
+    prox3 = gamma*(logic.*(y3 - t*y3./max(norm,0.0001)) );
 
 
 end
