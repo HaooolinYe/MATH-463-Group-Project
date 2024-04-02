@@ -10,7 +10,7 @@ function [y] = proxg(norm, b,y, t, gamma)
 
   
     %finding l1 or l2 prox
-    if norm == l1
+    if strcmp(norm,'l1') ==1
         %insert l1 prox g
         absyk = abs(y(:,:,1));
         logic = absyk>t;
