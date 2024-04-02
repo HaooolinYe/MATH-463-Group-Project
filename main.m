@@ -34,7 +34,7 @@
         i.rhoprimaldr = 0.1;
         % Set initial vectors for Alg1
         z_1 = zeros(numRows*numCols, 1);
-        z_2 = zeros(3*numRows*numCols, 1);% |z_2|=3n^2
+        z_2 = cat(3,z_1,z_1,z_1);% |z_2|=3n^2
         x_initAlg1 = {z_1, z_2};
     %alg2
         % Set parameters for Alg2
@@ -42,7 +42,7 @@
         i.rhoprimaldualdr = 1.049;
         % Set initial vectors for Alg2
         p= zeros(numRows*numCols, 1);
-        q = zeros(3*numRows*numCols, 1); % |q|=3n^2
+        q = cat(3,p,p,p); % |q|=3n^2
         x_initAlg2 = {p,q};
     %alg 3
         % Set parameters for Alg3
@@ -50,9 +50,9 @@
         i.rhoadmm = 1.049;
         % Set initial vectors for Alg3
         u = zeros(numRows*numCols, 1);
-        y = zeros(3*numRows*numCols, 1); % |y|=3n^2
+        y = cat(3,u,u,u); % |y|=3n^2
         w = zeros(numRows*numCols, 1);
-        z= zeros(3*numRows*numCols, 1); % |z|=3n^2
+        z= cat(3,u,u,u); % |z|=3n^2
         x_initAlg3 = {u, y, w, z};
 
 % Deblurring the image:
