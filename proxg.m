@@ -12,9 +12,7 @@ function [y] = proxg(norm, b,y, t, gamma)
     %finding l1 or l2 prox
     if strcmp(norm,'l1') ==1
         %insert l1 prox g
-        absyk = abs(y(:,:,1));
-        logic = absyk>t;
-        y(:,:,1) = logic.*(sign(y(:,:,1)).*(absyk-t));
+        y(:,:,1) = proxl1(t,b,y(:,:,1));
     else
         %insert l2 prox g
         y(:,:,1) = l2prox(y(:,:,1),b,t);
