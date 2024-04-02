@@ -10,7 +10,7 @@ function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem)
     z_1 = init_vectors(1);
     z_2 = init_vectors(2);
     for k =1:i.maxiter
-        x = prox_f(t,z_1); % proxf(z_1^k-1)
+        x = proxf(t,z_1); % proxf(z_1^k-1)
         if strcmp(problem,'l1') == 1
             gamma=i.gammal1;
         else
