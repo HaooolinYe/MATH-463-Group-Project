@@ -1,21 +1,14 @@
 function [prox2,prox3] = iso_proxg(y2,y3, t, gamma)
 %DESCRIPTION: Prox operator of the iso norm 
-%   INPUT:  
-%           t                = stepsize
+%   INPUT:           
 %           y2,y3            = y(:,:,2) and y(:,:,3)
-%           gamma            = de-noising parameter
-%   OUTPUT:  gamma*prox( iso(y2,y3) )
+%           gamma            = de-noising parameter (step-size)
+%   OUTPUT:  prox( iso(y2,y3) )
 
+ 
+    alpha = 1-gamma./max( (y2.^2+y3.^2).^(1/2) , gamma ); 
 
-    %if norm > t: (y2_k y3_k) - t*(y2_k y3_k)/norm, 
-    % aka divide each row [y2_k y3_k] by its norm
-    %if otherwise: 0 (due to logic vector)
-
-    norm = (y2.^2+y3.^2).^(1/2); %component-wise: sqrt(y2_k^2 + y3_k^2)
-    logic = norm>t; %bool vect represents the constraint of the prox+
-
-    prox2 = gamma*(logic.*(y2 - t*y2./max(norm,0.0001)) ); 
-    prox3 = gamma*(logic.*(y3 - t*y3./max(norm,0.0001)) );
-
+    prox2 = y2.*alpha;
+    prox3 = y3.*alpha;
 
 end
