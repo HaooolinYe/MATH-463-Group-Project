@@ -10,8 +10,8 @@ function [y] = proxg(norm, b,y, t, gamma)
 
   
     %finding l1 or l2 prox
-    if strcmp(norm,'l1') ==1
-        %insert l1 prox g
+    if strcmp(norm,'l1') == 1
+        %insert l1 prox g 
         y(:,:,1) = proxl1(t,b,y(:,:,1));
     else
         %insert l2 prox g
@@ -20,5 +20,4 @@ function [y] = proxg(norm, b,y, t, gamma)
 
     %find iso prox
     [y(:,:,2), y(:,:,3)] = iso_proxg(y(:,:,2),y(:,:,3),t,gamma);
-
 end

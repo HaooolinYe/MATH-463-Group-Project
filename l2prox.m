@@ -6,7 +6,7 @@ function [output] = l2prox(y1, b, t)
 %   OUTPUT:  prox( l2(y1-b) )
 %
 
-x = y1 - b;
+x = 2*t*b+y1;
 output = (x ./ (2*t + 1) );
 
 end

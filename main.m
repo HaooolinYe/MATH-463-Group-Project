@@ -1,12 +1,12 @@
 %MAIN SCRIPT
 %storing+blurring image:
 
-    I= imread('True_Image.png'); %Store image
+    I = imread('True_Image.png'); %Store image
     figure('Name','image before deblurring') % Show initial image
     imshow(I,[])   
     I = double(I(:, :, 1));% Resize image (pixels between 0-1) 
     mn=min(I(:));
-    I=I-mn;
+    I = I-mn;
     mx = max(I(:));
     I = I/mx;
     % can use this to resize image for faster computation
@@ -25,17 +25,17 @@
 % default parameters:
 
     %common parameters
-    i.maxiter = 1;
+    i.maxiter = 50;
     i.gammal1 = 0;
     i.gammal2 = 0;
     %alg1
         % Set parameters for Alg1
-        i.tprimaldr = 0.1;
-        i.rhoprimaldr = 2.0;
+        i.tprimaldr = 0.9;
+        i.rhoprimaldr = 1;
         % Set initial vectors for Alg1
         z_1 = zeros(numRows,numCols);
-        z_1(1, 1)=1;
-        z_2 = cat(3,z_1,z_1,z_1);% |z_2|=3n^2
+        %z_1(1, 1)=1;
+        z_2 = cat(3,z_1,z_1,z_1); % |z_2|=3n^2
         x_initAlg1 = {z_1, z_2};
     %alg2
         % Set parameters for Alg2
@@ -58,6 +58,6 @@
 
 % Deblurring the image:
 
-    x = optsolve('l1', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
-    figure('Name','image after deblurring') % Show blurred image
+    x = optsolve('l2', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
+    figure('Name','image after deblurring') % Show deblurred image
     imshow(x,[]) 

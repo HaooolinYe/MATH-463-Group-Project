@@ -13,7 +13,7 @@ function [prox2,prox3] = iso_proxg(y2,y3, t, gamma)
     else
 
         %actual prox calculation
-        alpha = 1-t*gamma./max( (y2.^2+y3.^2).^(1/2) , t*gamma ); 
+        alpha = 1-(t*gamma./max( (y2.^2+y3.^2).^(1/2) , t ); 
     
         prox2 = y2.*alpha;
         prox3 = y3.*alpha;
