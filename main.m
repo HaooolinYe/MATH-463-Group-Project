@@ -25,13 +25,13 @@
 % default parameters:
 
     %common parameters
-    i.maxiter = 50;
+    i.maxiter = 100;
     i.gammal1 = 0;
     i.gammal2 = 0;
     %alg1
         % Set parameters for Alg1
-        i.tprimaldr = 0.9;
-        i.rhoprimaldr = 1;
+        i.tprimaldr = 0.5;
+        i.rhoprimaldr = 2;
         % Set initial vectors for Alg1
         z_1 = zeros(numRows,numCols);
         %z_1(1, 1)=1;
@@ -58,6 +58,6 @@
 
 % Deblurring the image:
 
-    x = optsolve('l2', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
+    x = optsolve('l1', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
     figure('Name','image after deblurring') % Show deblurred image
     imshow(x,[]) 

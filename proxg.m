@@ -13,6 +13,7 @@ function [y] = proxg(norm, b,y, t, gamma)
     if strcmp(norm,'l1') == 1
         %insert l1 prox g 
         y(:,:,1) = proxl1(t,b,y(:,:,1));
+%         y(:,:,1) = l1prox(y(:,:,1),t,b); %Prof's L1 prox function
     else
         %insert l2 prox g
         y(:,:,1) = l2prox(y(:,:,1),b,t);

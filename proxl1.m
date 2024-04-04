@@ -5,8 +5,7 @@ function [ output ] = proxl1(t, b, y1)
 %           b                = blurred image
 %           x                = input vector
 %   OUTPUT: prox operator of l1 norm (soft thresholding) applied to x
-    z = b - y1;
-    absxk = abs(z);
-    logic = absxk>t;
-    output = logic.*(sign(z)*t+y1);
+    z = y1-b;
+    logic = abs(z)>t;
+    output = logic.*(sign(z).*(abs(z)-t))+b;
 end

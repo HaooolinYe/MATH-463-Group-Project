@@ -7,9 +7,9 @@ function [prox2,prox3] = iso_proxg(y2,y3, t, gamma)
 
     
     if gamma == 0
-        %if gamma is 0 just output 0 (for debugging purposes)
-        prox2 = zeros(size(y2));
-        prox3 = zeros(size(y3));
+        %if gamma is 0 just dont change anything (for debugging purposes)
+        prox2 = y2;
+        prox3 = y3;
     else
 
         %actual prox calculation
