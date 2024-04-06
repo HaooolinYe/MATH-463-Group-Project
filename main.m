@@ -26,7 +26,7 @@
 
     %common parameters
     i.maxiter = 100;
-    i.gammal1 = 0;
+    i.gammal1 = 0.02;
     i.gammal2 = 0;
     %alg1
         % Set parameters for Alg1
@@ -58,6 +58,6 @@
 
 % Deblurring the image:
 
-    x = optsolve('l1', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
+    x = optsolve('l1', 'douglasrachfordprimaldual', x_initAlg2, kernel, b, i);
     figure('Name','image after deblurring') % Show deblurred image
     imshow(x,[]) 

@@ -26,6 +26,8 @@ function [x]= optsolve(problem,algorithm,x_init, kernel, b, i)
     eigArry_D1Trans = conj(eigArry_D1);
     eigArry_D2Trans = conj(eigArry_D2);
 
+    eigArrys = {eigArry_K, eigArry_D1, eigArry_D2, eigArry_KTrans, eigArry_D1Trans, eigArry_D2Trans};
+
     %Functions which compute Kx, D1x, D2x, Dxt, K^Tx, D1^Tx, D2^Tx, and D^Ty.
     %Note for all the x functions, the input x is in R^(m x n) and outputs into
     %R^(m x n) except for D which outputs into 2 concat. R^(m x n) matrices;
@@ -69,7 +71,7 @@ function [x]= optsolve(problem,algorithm,x_init, kernel, b, i)
 %          x = DRprimal(kernel, b, i.gammal1, i.tprimaldr, i.maxiter);
 
     elseif strcmp(algorithm ,'douglasrachfordprimaldual') == 1
-        x = douglasrachfordprimal(b, i.tprimaldualdr, i.rhoprimaldualdr, x_init, problem, i);
+        x = douglasrachfordprimaldual(b, x_init, problem, i, applyA_functions, eigArrys);
         
     else 
         x = admm(b, i.tadmm, i.rhoadmm, x_init, problem, i);
