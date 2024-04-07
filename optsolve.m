@@ -74,7 +74,7 @@ function [x]= optsolve(problem,algorithm,x_init, kernel, b, i)
         x = douglasrachfordprimaldual(b, x_init, problem, i, applyA_functions, eigArrys);
         
     else 
-        x = admm(b, i.tadmm, i.rhoadmm, x_init, problem, i);
+        x = admm(b, i.tadmm, i.rhoadmm, x_init, problem, applyA_functions, i, eigArrys);
     end 
 
 end

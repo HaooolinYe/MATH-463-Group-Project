@@ -26,6 +26,6 @@ function [x] = douglasrachfordprimal(b, t, rho, init_vectors, problem, i, applyA
         z_1 = z_1 + rho*(u-x);
         z_2 = z_2 + rho*(v-y);
     end
-    %x = proxf(t,z_1);
+    x = proxf(t,z_1);
 
 end
