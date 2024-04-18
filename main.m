@@ -13,6 +13,17 @@
     %resizefactor = 0.1;
     %I = imresize(I, resizefactor);
 
+    % Calculate the mean of the first column
+    mean_first_column = mean(I(:, 1));
+    % Calculate the mean of the first row
+    mean_first_row = mean(I(1, :));
+    
+    m = (mean_first_row+mean_first_column) / 2;
+    % Add padding around the image
+    I = padarray(I,[7 7],m,'both');
+    figure('Name','image before deblurring') % Show initial image
+    imshow(I,[]) 
+
     % Generate blurred image
     noiseDensity = 0.5; 
     kernel = fspecial('gaussian', [15, 15], 5); 
@@ -59,5 +70,18 @@
 % Deblurring the image:
 
     x = optsolve('l1', 'admm', x_initAlg3, kernel, b, i);
+
+    %figure('Name','image after deblurring') % Show deblurred image
+    %imshow(x,[]) 
+    
+    pad_size = 7; % Example padding size, adjust as needed
+
+    % Get the size of the original matrix
+    [rows, cols] = size(x);
+    
+    % Define the range of rows and columns after removing padding
+    row_range = (1 + pad_size):(rows - pad_size);
+    col_range = (1 + pad_size):(cols - pad_size);
+    cropped_matrix = x(row_range, col_range);
     figure('Name','image after deblurring') % Show deblurred image
-    imshow(x,[]) 
+    imshow(cropped_matrix,[]) 
