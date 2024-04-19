@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 %MAIN SCRIPT
 %storing+blurring image:
 tic
@@ -63,7 +62,7 @@ tic
      figure('Name','image after deblurring') % Show blurred image
      imshow(x,[]) 
 
-=======
+%%%%%%
 %MAIN SCRIPT
 %storing+blurring image:
 tic
@@ -127,5 +126,3 @@ tic
      toc
      figure('Name','image after deblurring') % Show blurred image
      imshow(x,[]) 
-
->>>>>>> 8088a532393f350c8b11666630c14f61997f0959
