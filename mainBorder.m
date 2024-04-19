@@ -1,7 +1,7 @@
 %MAIN SCRIPT
 %storing+blurring image:
 tic
-    I = imread('True_Image.png'); %Store image
+    I = imread('cameraman.jpg'); %Store image
 %     figure('Name','image before deblurring') % Show initial image
     %imshow(I,[])  
     I = rgb2gray(I);
