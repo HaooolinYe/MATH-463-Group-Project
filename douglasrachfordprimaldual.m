@@ -10,7 +10,11 @@ function [x] = douglasrachfordprimaldual(b, init_vectors, problem, i, applyA_fun
     %Initial parameters & necessary functions
     t = i.tprimaldualdr;
     rho = i.rhoprimaldualdr;
-    gamma = i.gammal1;
+    if (strcmp(problem, 'l1')==1)
+        gamma = i.gammal1;
+    else
+        gamma = i.gammal2;
+    end
     p = init_vectors{1};
     q = init_vectors{2};
     applyA = applyA_functions{1};
