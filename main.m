@@ -1,9 +1,9 @@
 %MAIN SCRIPT
 %storing+blurring image:
-
+tic
     I = imread('True_Image.png'); %Store image
-    figure('Name','image before deblurring') % Show initial image
-    imshow(I,[])   
+%     figure('Name','image before deblurring') % Show initial image
+    %imshow(I,[])   
     I = double(I(:, :, 1));% Resize image (pixels between 0-1) 
     mn=min(I(:));
     I = I-mn;
@@ -21,28 +21,29 @@
     m = (mean_first_row+mean_first_column) / 2;
     % Add padding around the image
     I = padarray(I,[7 7],m,'both');
-    figure('Name','image before deblurring') % Show initial image
-    imshow(I,[]) 
+%     figure('Name','image before deblurring') % Show initial image
+    %imshow(I,[]) 
 
     % Generate blurred image
     noiseDensity = 0.5; 
     kernel = fspecial('gaussian', [15, 15], 5); 
     b = imfilter(I,kernel);
-    %b = imnoise(b,'salt & pepper',noiseDensity);
+    b = imnoise(b,'salt & pepper',noiseDensity);
     [numRows, numCols] = size(b);
-    figure('Name','image after blurring') % Show blurred image
-    imshow(b,[]) 
+%     figure('Name','image after blurring') % Show blurred image
+%     imshow(b,[]) 
 
 % default parameters:
 
     %common parameters
-    i.maxiter = 500;
-    i.gammal1 = 0;
+    i.maxiter = 100;
+%     i.gammal1 = 0.0076;
+    i.gammal1 = 0.04;
     i.gammal2 = 0;
     %alg1
         % Set parameters for Alg1
-        i.tprimaldr = 0.1;
-        i.rhoprimaldr = 2.0;
+        i.tprimaldr = 2;
+        i.rhoprimaldr = 1;
         % Set initial vectors for Alg1
         z_1 = zeros(numRows,numCols);
         %z_1(1, 1)=1;
@@ -51,15 +52,15 @@
     %alg2
         % Set parameters for Alg2
         i.tprimaldualdr = 2.0;
-        i.rhoprimaldualdr = 1.049;
+        i.rhoprimaldualdr = 1.0;
         % Set initial vectors for Alg2
         p = zeros(numRows, numCols);
         q = cat(3,p,p,p); % |q|=3n^2
         x_initAlg2 = {p,q};
     %alg 3
         % Set parameters for Alg3
-        i.tadmm = 1.3;
-        i.rhoadmm = 0.9;
+        i.tadmm = 1.03;
+        i.rhoadmm = 0.85;
         % Set initial vectors for Alg3
         u = zeros(numRows, numCols);
         y = cat(3,u,u,u); % |y|=3n^2
@@ -69,8 +70,8 @@
 
 % Deblurring the image:
 
-    x = optsolve('l1', 'admm', x_initAlg3, kernel, b, i);
-
+    x = optsolve('l1', 'douglasrachfordprimaldual', x_initAlg2, kernel, b, i);
+    toc
     %figure('Name','image after deblurring') % Show deblurred image
     %imshow(x,[]) 
     

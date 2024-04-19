@@ -68,7 +68,6 @@ function [x]= optsolve(problem,algorithm,x_init, kernel, b, i)
     % deblurring
     if strcmp(algorithm, 'douglasrachfordprimal') == 1
         x = douglasrachfordprimal(b, i.tprimaldr, i.rhoprimaldr, x_init, problem, i, applyA_functions);
-%          x = DRprimal(kernel, b, i.gammal1, i.tprimaldr, i.maxiter);
 
     elseif strcmp(algorithm ,'douglasrachfordprimaldual') == 1
         x = douglasrachfordprimaldual(b, x_init, problem, i, applyA_functions, eigArrys);

@@ -7,6 +7,7 @@ function [x] = douglasrachfordprimaldual(b, init_vectors, problem, i, applyA_fun
 %           problem          = specify the norm 
 %   OUTPUT: x                = "deblurred" image 
 %
+    %Initial parameters & necessary functions
     t = i.tprimaldualdr;
     rho = i.rhoprimaldualdr;
     gamma = i.gammal1;
@@ -25,17 +26,19 @@ function [x] = douglasrachfordprimaldual(b, init_vectors, problem, i, applyA_fun
     % matrix and the eigenvalues of I + t*t*K^TK + t*t*D^TD; here t is the
     % stepsizes
     eigValsMatT = ones(size(eigArry_K)) + t*t*eigArry_KTrans.*eigArry_K + t*t*eigArry_D1Trans.*eigArry_D1 + t*t*eigArry_D2Trans.*eigArry_D2;
-    invertMatrixT = @(x) real(ifft2(fft2(x)./eigValsMatT)); 
+    invertMatrixT = @(x) real(ifft2(fft2(x)./eigValsMatT)); %function to apply (I+t^2A^TA)^-1
     for k = 1:i.maxiter
-        x = proxf(t,p);
-        z = q - t*proxg(problem,b,q/t,1/t,gamma); %using moreau decomp. thm. and property that g** = g since g is convex and lsc
-        % Using eq. (2) in https://arxiv.org/pdf/2305.11103.pdf to perform
-        % matrix inverse using applyA and applyAT
+
+        %Resolvent of A
+        x = proxf(t,p);     
+        z = q - t*proxg(problem,b,q/t,1/t,gamma); %using moreau decomp. thm. to compute prox of g*
+
+        %Resolvent of B (using computation from project description)
         matrixOne = 2*x - p;
         matrixTwo = 2*z - q;
-
-        w = matrixOne - t^2*applyAT(invertMatrixT(applyA(matrixOne))) - t*applyAT(invertMatrixT(matrixTwo));
-        v = t*invertMatrixT(applyA(matrixOne)) + invertMatrixT(matrixTwo);
+        inverted = invertMatrixT(matrixOne-t*applyAT(matrixTwo));
+        w = inverted;
+        v = matrixTwo + t*applyA(inverted);
 
         p = p + rho*(w - x);
         q = q + rho*(v - z);

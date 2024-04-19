@@ -20,7 +20,7 @@ function [x] = admm(b, t, rho, init_vectors, problem, applyA_functions, i, eigAr
     eigArry_D1Trans = eigArrys{5};
     eigArry_D2Trans = eigArrys{6};
     % matrix and the eigenvalues of I + t*t*K^TK + t*t*D^TD; here t is the stepsizes
-    eigValsMatT = ones(size(eigArry_K)) + t*t*eigArry_KTrans.*eigArry_K + t*t*eigArry_D1Trans.*eigArry_D1 + t*t*eigArry_D2Trans.*eigArry_D2;
+    eigValsMatT = ones(size(eigArry_K)) + eigArry_KTrans.*eigArry_K + eigArry_D1Trans.*eigArry_D1 + eigArry_D2Trans.*eigArry_D2;
     invertMatrixT = @(x) real(ifft2(fft2(x)./eigValsMatT)); 
 
     if strcmp(problem, 'l1') == 1
