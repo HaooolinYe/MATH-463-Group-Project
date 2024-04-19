@@ -14,13 +14,17 @@ tic
     %I = imresize(I, resizefactor);
 
     % Calculate the mean of the first column
-    mean_first_column = mean(I(:, 1));
+    % mean padding
+    % mean_first_column = mean(I(:, 1));
     % Calculate the mean of the first row
-    mean_first_row = mean(I(1, :));
-    
-    m = (mean_first_row+mean_first_column) / 2;
+    % mean_first_row = mean(I(1, :));
+    %m = (mean_first_row+mean_first_column) / 2;
+    % I = padarray(I,[7 7],m,'both');
+
+
     % Add padding around the image
-    I = padarray(I,[7 7],m,'both');
+    % reflection padding
+    I = padarray(I, [7 7], "symmetric");
 %     figure('Name','image before deblurring') % Show initial image
     %imshow(I,[]) 
 
