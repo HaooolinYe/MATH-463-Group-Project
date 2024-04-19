@@ -14,14 +14,7 @@ tic
     %resizefactor = 0.1;
     %I = imresize(I, resizefactor);
 
-    % Calculate the mean of the first column
-    mean_first_column = mean(I(:, 1));
-    % Calculate the mean of the first row
-    mean_first_row = mean(I(1, :));
-    
-    m = (mean_first_row+mean_first_column) / 2;
-    % Add padding around the image
-    I = padarray(I,[7 7],m,'both');
+    I = padarray(I, [7 7], "symmetric");
 %     figure('Name','image before deblurring') % Show initial image
     %imshow(I,[]) 
 
@@ -37,7 +30,7 @@ tic
 % default parameters:
 
     %common parameters
-    i.maxiter = 100;
+    i.maxiter = 500;
 %     i.gammal1 = 0.0076;
     i.gammal1 = 0.003;
     i.gammal2 = 0.0;
