@@ -2,6 +2,7 @@
 %storing+blurring image:
 tic
      I= imread('True_Image.png'); %Store image
+     I = rgb2gray(I);
      figure('Name','image before deblurring') % Show initial image
      imshow(I,[])   
      I = double(I(:, :, 1));% Resize image (pixels between 0-1) 
@@ -9,6 +10,7 @@ tic
      I=I-mn;
      mx = max(I(:));
      I = I/mx;
+
      % can use this to resize image for faster computation
      %resizefactor = 0.1;
      %I = imresize(I, resizefactor);
@@ -26,11 +28,11 @@ tic
  
      %common parameters
      i.maxiter = 500;
-     i.gammal1 = 0.003;%admm: 0.0076
-     i.gammal2 = 0.0076;%0.089
+     i.gammal1 = 0.01;%admm: 0.0076
+     i.gammal2 = 0.003;%0.089
      %alg1
          % Set parameters for Alg1
-         i.tprimaldr = 0.01; % gamma = 0.003
+         i.tprimaldr = 0.01; 
          i.rhoprimaldr = 1.95;
          % Set initial vectors for Alg1
          z_1 = zeros(numRows, numCols);
@@ -38,16 +40,16 @@ tic
          x_initAlg1 = {z_1, z_2};
      %alg2
          % Set parameters for Alg2
-         i.tprimaldualdr = 10.0;
-         i.rhoprimaldualdr = 1.049;
+         i.tprimaldualdr = 10;
+         i.rhoprimaldualdr = 1.5;
          % Set initial vectors for Alg2
          p = zeros(numRows, numCols);
          q = cat(3,p,p,p); % |q|=3n^2
          x_initAlg2 = {p,q};
      %alg 3
          % Set parameters for Alg3
-         i.tadmm = 1.03;
-         i.rhoadmm = 0.85;%1.85;
+         i.tadmm = 15;
+         i.rhoadmm = 1.5;
          % Set initial vectors for Alg3
          u = zeros(numRows, numCols);
          y = cat(3,u,u,u); % |y|=3n^2
@@ -61,3 +63,4 @@ tic
      toc
      figure('Name','image after deblurring') % Show blurred image
      imshow(x,[]) 
+     L2SquaredError = norm(x - I)^2
