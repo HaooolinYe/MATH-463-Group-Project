@@ -14,10 +14,10 @@ tic
     %resizefactor = 0.1;
     %I = imresize(I, resizefactor);
 
+    figure('Name','image before deblurring') % Show initial image
+    imshow(I,[]) 
     I = padarray(I, [7 7], "symmetric",'both');
-%     figure('Name','image before deblurring') % Show initial image
-    %imshow(I,[]) 
-
+    
     % Generate blurred image
     noiseDensity = 0.5; 
     kernel = fspecial('gaussian', [15, 15], 5); 
@@ -64,7 +64,7 @@ tic
 
 % Deblurring the image:
 
-    x = optsolve('l1', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
+    x = optsolve('l1', 'admm', x_initAlg3, kernel, b, i);
     %figure('Name','image after deblurring') % Show deblurred image
     %imshow(x,[]) 
     

@@ -63,8 +63,10 @@ tic
          x_initAlg3 = {u, y, w, z};
  
  % Deblurring the image:
- 
-     x = optsolve('l2', 'algo3', x_initAlg3, kernel, b, i);
+     % ( _, 'douglasrachfordprimal', x_initAlg1, _, _, _) for primal Douglas-Rachford Splitting
+     % ( _, 'douglasrachfordprimaldual', x_initAlg2, _, _, _) for primal-dual Douglas-Rachford Splitting
+     % ( _, 'admm', x_initAlg3, _, _, _) for ADMM
+     x = optsolve('l2', 'admm', x_initAlg3, kernel, b, i);
      toc
      figure('Name','image after deblurring') % Show blurred image
      imshow(x,[]) 
