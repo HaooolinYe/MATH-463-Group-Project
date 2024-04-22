@@ -1,7 +1,7 @@
 %MAIN SCRIPT
 %storing+blurring image:
 tic
-    I = imread('mcgill.jpg'); %Store image
+    I = imread('cameraman.jpg'); %Store image
 %     figure('Name','image before deblurring') % Show initial image
     %imshow(I,[])  
     I = rgb2gray(I);
@@ -14,7 +14,7 @@ tic
     %resizefactor = 0.1;
     %I = imresize(I, resizefactor);
 
-    I = padarray(I, [7 7], "symmetric");
+    I = padarray(I, [7 7], "symmetric",'both');
 %     figure('Name','image before deblurring') % Show initial image
     %imshow(I,[]) 
 
@@ -30,7 +30,7 @@ tic
 % default parameters:
 
     %common parameters
-    i.maxiter = 1;
+    i.maxiter = 500;
 %     i.gammal1 = 0.0076;
     i.gammal1 = 0.003;
     i.gammal2 = 0.0;
@@ -64,7 +64,7 @@ tic
 
 % Deblurring the image:
 
-    x = optsolve('l1', 'douglasrachfordprimaldual', x_initAlg2, kernel, b, i);
+    x = optsolve('l1', 'douglasrachfordprimal', x_initAlg1, kernel, b, i);
     %figure('Name','image after deblurring') % Show deblurred image
     %imshow(x,[]) 
     
@@ -78,6 +78,6 @@ tic
     col_range = (1 + pad_size):(cols - pad_size);
     cropped_matrix = x(row_range, col_range);
     toc
-    L2SquaredError = norm(cropped_matrix - I)^2
+    %L2SquaredError = norm(cropped_matrix - I)^2;
     figure('Name','image after deblurring') % Show deblurred image
     imshow(cropped_matrix,[]) 
